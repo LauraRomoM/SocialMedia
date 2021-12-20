@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SocialMedia.Core.Entities;
 
@@ -18,7 +18,7 @@ namespace SocialMedia.Infraestructure.Data.Configurations
             builder.Property(e => e.UserId)
                 .HasColumnName("IdUsuario");
 
-            builder.Property(e => e.Descrition)
+            builder.Property(e => e.Description)
                 .IsRequired()
                 .HasColumnName("Descripcion")
                 .HasMaxLength(1000)
