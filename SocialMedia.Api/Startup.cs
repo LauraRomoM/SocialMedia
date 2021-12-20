@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using SocialMedia.Core.Interfaces;
 using SocialMedia.Infraestructure.Data;
 using SocialMedia.Infraestructure.Repositories;
+using System;
 
 namespace SocialMedia.Api
 {
@@ -22,7 +23,7 @@ namespace SocialMedia.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());   //busca en toda la solucion, cuales son los profiles que se estan haciendo para registrarlos
             // services.AddTransient<IPostRepository, PostRepository>();
 
             services.AddDbContext<SocialMediaContext>(Options =>                
