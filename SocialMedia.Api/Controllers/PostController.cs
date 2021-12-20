@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace SocialMedia.Api.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+  //  [ApiController]
     public class PostController : ControllerBase
     {
         private readonly IPostRepository _postRepository;
@@ -39,14 +39,13 @@ namespace SocialMedia.Api.Controllers
             return Ok(postDto);
         }
 
-
         [HttpPost]      //API de una publicacion especifica
-        public async Task<IActionResult> Post(Post post)        //llamado de un unico Post
+        public async Task<IActionResult> Post(PostDto postDto)        //llamado de un unico Post
         {
-            var post = await _postRepository.GetPost(id);
+            var post = _mapper.Map<Post>(postDto);
+            await _postRepository.InsertPost(post);
             return Ok(post);
         }
-
 
     }
 }
