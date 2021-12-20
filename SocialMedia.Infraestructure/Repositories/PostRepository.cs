@@ -27,13 +27,6 @@ namespace SocialMedia.Infraestructure.Repositories
         // en este caso indicamos que en ligar de recibir lista de publicaciones(Post), recibiremos un unico Post
         public async Task<Post> GetPost(int id)
         {
-            var post = await _context.Posts.FirstOrDefaultAsync(x => x.UserId == id);
-            return post;
-        }
-
-        public async Task InsertPost(Post post)
-        {
-            _context.Posts.Add post
             var post = await _context.Posts.FirstOrDefaultAsync(x => x.PostId == id);
             return post;
         }
