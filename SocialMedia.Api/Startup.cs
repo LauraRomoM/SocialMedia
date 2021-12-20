@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SocialMedia.Core.Interfaces;
 using SocialMedia.Infraestructure.Data;
+using SocialMedia.Infraestructure.Filters;
 using SocialMedia.Infraestructure.Repositories;
 using System;
 
@@ -24,12 +25,26 @@ namespace SocialMedia.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());   //busca en toda la solucion, cuales son los profiles que se estan haciendo para registrarlos
-            // services.AddTransient<IPostRepository, PostRepository>();
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            })            
+            .ConfigureApiBehaviorOptions(options => {       //con esto des habilitamos la decoracion [ApiControler]
+                options.SuppressModelStateInvalidFilter = true;
+            });
 
             services.AddDbContext<SocialMediaContext>(Options =>                
                 Options.UseSqlServer(Configuration.GetConnectionString("SocialMedia"))     //usaremos sql server y la cadena de conexion para acceder esta en el GetConectionString("SocialMedia")
             );
             services.AddTransient<IPostRepository, PostRepository>();
+
+            //Acregamos el ValidationFilter al midelWork para que las ejecuciones pasen x este filtro
+            services.AddMvc(options =>              //añadimos compativilidad con MVC
+            {
+                options.Filters.Add<ValidationFilter>();
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
