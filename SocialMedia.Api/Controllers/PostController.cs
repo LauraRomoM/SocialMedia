@@ -35,7 +35,8 @@ namespace SocialMedia.Api.Controllers
         public async Task<IActionResult> GetPost(int id)        //llamado de un unico Post
         {
             var post = await _postRepository.GetPost(id);
-            return Ok(post);
+            var postDto = _mapper.Map<PostDto>(post);
+            return Ok(postDto);
         }
 
 
