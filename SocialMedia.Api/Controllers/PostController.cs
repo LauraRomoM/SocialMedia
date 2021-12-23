@@ -57,5 +57,12 @@ namespace SocialMedia.Api.Controllers
             return Ok(post);
         }
 
+        [HttpDelete]      //para actualizacion de publicacion o recurso especifico
+        public async Task<IActionResult> Put(int id)        //llamado de un unico Post
+        {
+            var result = await _postRepository.DeletePost(id);
+            return Ok(result);
+        }
+
     }
 }
