@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -40,7 +41,7 @@ namespace SocialMedia.Api
             services.AddTransient<IPostRepository, PostRepository>();
 
             //Acregamos el ValidationFilter al midelWork para que las ejecuciones pasen x este filtro
-            services.AddMvc(options =>              //añadimos compativilidad con MVC
+            services.AddMvc(options =>              //aï¿½adimos compativilidad con MVC
             {
                 options.Filters.Add<ValidationFilter>();
             });
