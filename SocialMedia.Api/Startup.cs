@@ -32,7 +32,7 @@ namespace SocialMedia.Api
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             })
             .ConfigureApiBehaviorOptions(options => {       //con esto des habilitamos la decoracion [ApiControler]
-                options.SuppressModelStateInvalidFilter = true;     //des habilida el decorador [ApiController]
+            
             });
 
             services.AddDbContext<SocialMediaContext>(Options =>
