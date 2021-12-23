@@ -47,5 +47,15 @@ namespace SocialMedia.Api.Controllers
             return Ok(post);
         }
 
+        [HttpPut]      //para actualizacion de publicacion o recurso especifico
+        public async Task<IActionResult> Put(int id, PostDto postDto)        //llamado de un unico Post
+        {
+            var post = _mapper.Map<Post>(postDto);
+            post.PostId = id;       //para garantizar que el esa entidad tenga el id que quiero actualizar
+
+            await _postRepository.InsertPost(post);
+            return Ok(post);
+        }
+
     }
 }
