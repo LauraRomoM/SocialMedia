@@ -22,7 +22,7 @@ namespace SocialMedia.Api.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]       //API de publicaciones
+        [HttpGet]       //para consulta de todas las publicaciones o recursos
         public async Task<IActionResult> GetPosts()
         {
             var posts = await _postRepository.GetPosts();
@@ -31,7 +31,7 @@ namespace SocialMedia.Api.Controllers
             return Ok(postsDto);
         }
 
-        [HttpGet("{id}")]      //API de una publicacion especifica
+        [HttpGet("{id}")]      //para consultar publicacion o recurso especifico
         public async Task<IActionResult> GetPost(int id)        //llamado de un unico Post
         {
             var post = await _postRepository.GetPost(id);
@@ -39,7 +39,7 @@ namespace SocialMedia.Api.Controllers
             return Ok(postDto);
         }
 
-        [HttpPost]      //API de una publicacion especifica
+        [HttpPost]      //para publicacion de recursos
         public async Task<IActionResult> Post(PostDto postDto)        //llamado de un unico Post
         {
             var post = _mapper.Map<Post>(postDto);
