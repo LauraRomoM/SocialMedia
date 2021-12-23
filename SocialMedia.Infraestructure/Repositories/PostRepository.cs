@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SocialMedia.Core.Entities;
 using SocialMedia.Core.Interfaces;
 using SocialMedia.Infraestructure.Data;
@@ -48,6 +48,17 @@ namespace SocialMedia.Infraestructure.Repositories
             int rows = await _context.SaveChangesAsync();  //guardamos los cambios
             return rows > 0;    
         }
+
+        public async Task<bool> DeletePost(int id)
+        {
+            var currentPost = await GetPost(id);
+            _context.Posts.Remove(currentPost);
+            //currentPost.UserId = post.UserId;     El usuario no es logico o comun que cambie, asi que no lo incluimos para actualizacion del mismo
+
+            int rows = await _context.SaveChangesAsync();  //guardamos los cambios
+            return rows > 0;
+        }
+
     }
 }
 
