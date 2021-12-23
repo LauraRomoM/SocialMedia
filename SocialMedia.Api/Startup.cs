@@ -30,12 +30,12 @@ namespace SocialMedia.Api
             services.AddControllers().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            })            
+            })
             .ConfigureApiBehaviorOptions(options => {       //con esto des habilitamos la decoracion [ApiControler]
-                options.SuppressModelStateInvalidFilter = true;
+                options.SuppressModelStateInvalidFilter = true;     //des habilida el decorador [ApiController]
             });
 
-            services.AddDbContext<SocialMediaContext>(Options =>                
+            services.AddDbContext<SocialMediaContext>(Options =>
                 Options.UseSqlServer(Configuration.GetConnectionString("SocialMedia"))     //usaremos sql server y la cadena de conexion para acceder esta en el GetConectionString("SocialMedia")
             );
             services.AddTransient<IPostRepository, PostRepository>();
@@ -44,8 +44,11 @@ namespace SocialMedia.Api
             services.AddMvc(options =>              //a�adimos compativilidad con MVC
             {
                 options.Filters.Add<ValidationFilter>();
+            }).AddFluentValidation(options =>
+            {
+                options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
             });
-
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
