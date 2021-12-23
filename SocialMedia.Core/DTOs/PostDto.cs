@@ -11,7 +11,7 @@ namespace SocialMedia.Core.DTOs
     {
         public int PostId { get; set; }
         public int UserId { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
 
         [Required]
         public string Description { get; set; }
