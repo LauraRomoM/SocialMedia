@@ -49,15 +49,15 @@ namespace SocialMedia.Api.Controllers
 
         [HttpPut]      //para actualizacion de publicacion o recurso especifico
         public async Task<IActionResult> Put(int id, PostDto postDto)        //llamado de un unico Post
-        {
+        {  
             var post = _mapper.Map<Post>(postDto);
             post.PostId = id;       //para garantizar que el esa entidad tenga el id que quiero actualizar
 
-            await _postRepository.InsertPost(post);
+            await _postRepository.UpdatePost(post);
             return Ok(post);
         }
 
-        [HttpDelete]      //para actualizacion de publicacion o recurso especifico
+        [HttpDelete("{id}")]      //para actualizacion de publicacion o recurso especifico
         public async Task<IActionResult> Put(int id)        //llamado de un unico Post
         {
             var result = await _postRepository.DeletePost(id);
