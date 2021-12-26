@@ -58,9 +58,10 @@ namespace SocialMedia.Api.Controllers
         {  
             var post = _mapper.Map<Post>(postDto);
             post.PostId = id;       //para garantizar que el esa entidad tenga el id que quiero actualizar
-
-            await _postRepository.UpdatePost(post);
-            return Ok(post);
+                        
+            var result = await _postRepository.UpdatePost(post);
+            var response = new ApiResponse<bool>(result);
+            return Ok(response);
         }
 
         [HttpDelete("{id}")]      //para actualizacion de publicacion o recurso especifico
