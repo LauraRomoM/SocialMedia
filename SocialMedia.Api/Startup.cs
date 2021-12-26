@@ -39,6 +39,8 @@ namespace SocialMedia.Api
             services.AddDbContext<SocialMediaContext>(Options =>
                 Options.UseSqlServer(Configuration.GetConnectionString("SocialMedia"))     //usaremos sql server y la cadena de conexion para acceder esta en el GetConectionString("SocialMedia")
             );
+            
+            services.AddTransient<IPostService, PostService>();
             services.AddTransient<IPostRepository, PostRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
 
