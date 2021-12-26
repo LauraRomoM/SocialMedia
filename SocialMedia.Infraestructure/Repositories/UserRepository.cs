@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SocialMedia.Core.Entities;
 using SocialMedia.Infraestructure.Data;
 using SocialMedia.Core.Interfaces;
@@ -21,6 +21,12 @@ namespace SocialMedia.Infraestructure.Repositories
         {
             var posts = await _context.Users.ToListAsync();
             return posts;
+        }
+
+        public async Task<User> GetUser(int id)
+        {
+            var post = await _context.Users.FirstOrDefaultAsync(x => x.UserId == id);
+            return post;
         }
     }
 }
