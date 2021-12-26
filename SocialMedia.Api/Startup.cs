@@ -40,7 +40,7 @@ namespace SocialMedia.Api
                 Options.UseSqlServer(Configuration.GetConnectionString("SocialMedia"))     //usaremos sql server y la cadena de conexion para acceder esta en el GetConectionString("SocialMedia")
             );
             services.AddTransient<IPostRepository, PostRepository>();
-            services.AddTransient<IPostService, PostService>();
+            services.AddTransient<IUserRepository, UserRepository>();
 
             //Acregamos el ValidationFilter al midelWork para que las ejecuciones pasen x este filtro
             services.AddMvc(options =>              //a�adimos compativilidad con MVC
