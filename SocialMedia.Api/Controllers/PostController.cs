@@ -45,7 +45,11 @@ namespace SocialMedia.Api.Controllers
         public async Task<IActionResult> Post(PostDto postDto)        //llamado de un unico Post
         {
             var post = _mapper.Map<Post>(postDto);
+
             await _postRepository.InsertPost(post);
+
+            postDto = _mapper.Map<PostDto>(post);
+            var response = new ApiResponse<PostDto>(postDto);
             return Ok(post);
         }
 
