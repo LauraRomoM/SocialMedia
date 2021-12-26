@@ -43,5 +43,10 @@ namespace SocialMedia.Core.Services
         {
             return await _postRepository.UpdatePost(post);
         }
+
+        public async Task<bool> DeletePost(int id)
+        {
+            return await _postRepository.DeletePost(id);
+        }
     }
 }
