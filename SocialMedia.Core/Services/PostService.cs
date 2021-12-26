@@ -1,4 +1,4 @@
-﻿using SocialMedia.Core.Entities;
+using SocialMedia.Core.Entities;
 using SocialMedia.Core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,14 +11,11 @@ namespace SocialMedia.Core.Services
     public class PostService : IPostService
     {
         private readonly IPostRepository _postRepository;
-        public PostService(IPostRepository postRepository)
+        private readonly IUserRepository _userRepository;
+        public PostService(IPostRepository postRepository, IUserRepository userRepository)
         {
             _postRepository = postRepository;
-        }
-
-        public async Task<bool> DeletePost(int id)
-        {
-            return await _postRepository.DeletePost(id);
+            _userRepository = userRepository;
         }
 
         public async Task<Post> GetPost(int id)
