@@ -16,5 +16,11 @@ namespace SocialMedia.Infraestructure.Repositories
         {
             _context = context;
         }
+
+        public async Task<IEnumerable<User>> GetUsers()
+        {
+            var posts = await _context.Users.ToListAsync();
+            return posts;
+        }
     }
 }
