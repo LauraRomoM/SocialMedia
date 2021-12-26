@@ -30,6 +30,12 @@ namespace SocialMedia.Core.Services
 
         public async Task InsertPost(Post post)
         {
+            var user = await _userRepository.GetUser(post.UserId);
+            if(user == null)
+            {
+                throw new Exception("User doesn't exist");      //hacemos esepcion donde verificamos la existencia del usuario 
+            }
+
             await _postRepository.InsertPost(post);
         }
 
