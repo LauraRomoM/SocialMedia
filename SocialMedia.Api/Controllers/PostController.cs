@@ -37,7 +37,8 @@ namespace SocialMedia.Api.Controllers
         {
             var post = await _postRepository.GetPost(id);
             var postDto = _mapper.Map<PostDto>(post);
-            return Ok(postDto);
+            var response = new ApiResponse<PostDto>(postDto);
+            return Ok(response);
         }
 
         [HttpPost]      //para publicacion de recursos
