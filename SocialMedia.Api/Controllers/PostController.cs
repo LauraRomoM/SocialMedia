@@ -65,10 +65,11 @@ namespace SocialMedia.Api.Controllers
         }
 
         [HttpDelete("{id}")]      //para actualizacion de publicacion o recurso especifico
-        public async Task<IActionResult> Put(int id)        //llamado de un unico Post
+        public async Task<IActionResult> Delete(int id)        //llamado de un unico Post
         {
             var result = await _postRepository.DeletePost(id);
-            return Ok(result);
+            var response = new ApiResponse<bool>(result);           //hacemos bool la respuesta result y lo guardamos en variable response
+            return Ok(response);
         }
 
     }
