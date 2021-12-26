@@ -11,6 +11,9 @@ namespace SocialMedia.Core.Interfaces
         Task<Post> GetPost(int id);         //Firmas de metodos anexadas
 
         Task InsertPost(Post post);
+
+        Task<bool> UpdatePost(Post post);
+        Task<bool> DeletePost(int id);
     }
 }
 //Generar BD colocando el comando en El NuGet Pakage Manager Console, comando:

@@ -37,6 +37,28 @@ namespace SocialMedia.Infraestructure.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<bool> UpdatePost(Post post)
+        {
+            var currentPost = await GetPost(post.PostId);
+            currentPost.Date = post.Date;
+            currentPost.Description = post.Description;
+            currentPost.Image = post.Image;
+            //currentPost.UserId = post.UserId;     El usuario no es logico o comun que cambie, asi que no lo incluimos para actualizacion del mismo
+
+            int rows = await _context.SaveChangesAsync();  //guardamos los cambios
+            return rows > 0;    
+        }
+
+        public async Task<bool> DeletePost(int id)
+        {
+            var currentPost = await GetPost(id);
+            _context.Posts.Remove(currentPost);
+            //currentPost.UserId = post.UserId;     El usuario no es logico o comun que cambie, asi que no lo incluimos para actualizacion del mismo
+
+            int rows = await _context.SaveChangesAsync();  //guardamos los cambios
+            return rows > 0;
+        }
+
     }
 }
 
