@@ -1,4 +1,4 @@
-using SocialMedia.Core.Entities;
+﻿using SocialMedia.Core.Entities;
 using SocialMedia.Core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -34,6 +34,11 @@ namespace SocialMedia.Core.Services
             if(user == null)
             {
                 throw new Exception("User doesn't exist");      //hacemos esepcion donde verificamos la existencia del usuario 
+            }
+
+            if(post.Description.Contains("Sexo") || post.Description.Contains("sexo"))
+            {
+                throw new Exception("Contenido no permitido en la descripción de esta publicación");
             }
 
             await _postRepository.InsertPost(post);
