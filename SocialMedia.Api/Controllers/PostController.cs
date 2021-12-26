@@ -27,9 +27,9 @@ namespace SocialMedia.Api.Controllers
         public async Task<IActionResult> GetPosts()
         {
             var posts = await _postRepository.GetPosts();
-            var postsDto = _mapper.Map<IEnumerable<PostDto>>(posts);    //convertimos a tipo de dato IEnumerable(es un listado de PostDto enumerable)
-            
-            return Ok(postsDto);
+            var postsDtos = _mapper.Map<IEnumerable<PostDto>>(posts);    //convertimos a tipo de dato IEnumerable(es un listado de PostDto enumerable)
+            var response = new ApiResponse<IEnumerable<PostDto>>(postsDtos);
+            return Ok(response);
         }
 
         [HttpGet("{id}")]      //para consultar publicacion o recurso especifico
