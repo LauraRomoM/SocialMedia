@@ -1,4 +1,4 @@
-﻿using SocialMedia.Core.Entities;
+using SocialMedia.Core.Entities;
 using SocialMedia.Core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -31,7 +31,7 @@ namespace SocialMedia.Core.Services
             var user = await _unitOfWork.UserRepository.GetById(post.UserId);
             if(user == null)
             {
-                throw new Exception("User doesn't exist");      //hacemos esepcion donde verificamos la existencia del usuario 
+                throw new Exception("El usuario no existe");      //hacemos esepcion donde verificamos la existencia del usuario 
             }
 
             if(post.Description.Contains("Sexo") || post.Description.Contains("sexo"))
