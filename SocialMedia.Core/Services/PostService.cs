@@ -1,4 +1,4 @@
-﻿using SocialMedia.Core.Entities;
+using SocialMedia.Core.Entities;
 using SocialMedia.Core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,12 +10,10 @@ namespace SocialMedia.Core.Services
 
     public class PostService : IPostService
     {
-        private readonly IRepository<Post> _postRepository;         //Repository generico para entidad de Post
-        private readonly IRepository<User> _userRepository;         //Repository generico para la entidad User
-        public PostService(IRepository<Post> postRepository, IRepository<User> userRepository)
+        private readonly IUnitOfWork _unitOfWork;
+        public PostService(IUnitOfWork unitOfWork)
         {
-            _postRepository = postRepository;
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Post> GetPost(int id)
