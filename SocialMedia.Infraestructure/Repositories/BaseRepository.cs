@@ -36,10 +36,9 @@ namespace SocialMedia.Infraestructure.Repositories
             await _entities.AddAsync(entity);
         }
 
-        public async Task Update(T entity)
+        public void Update(T entity)
         {
             _entities.Update(entity);
-            await _context.SaveChangesAsync();
         }
         
         public async Task Delete(int id)
