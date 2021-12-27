@@ -10,9 +10,9 @@ namespace SocialMedia.Core.Services
 
     public class PostService : IPostService
     {
-        private readonly IPostRepository _postRepository;
-        private readonly IUserRepository _userRepository;
-        public PostService(IPostRepository postRepository, IUserRepository userRepository)
+        private readonly IRepository<Post> _postRepository;         //Repository generico para entidad de Post
+        private readonly IRepository<User> _userRepository;         //Repository generico para la entidad User
+        public PostService(IRepository<Post> postRepository, IRepository<User> userRepository)
         {
             _postRepository = postRepository;
             _userRepository = userRepository;
@@ -20,17 +20,17 @@ namespace SocialMedia.Core.Services
 
         public async Task<Post> GetPost(int id)
         {
-            return await _postRepository.GetPost(id);
+            return await _postRepository.GetById(id);
         }
 
         public async Task<IEnumerable<Post>> GetPosts()
         {
-            return await _postRepository.GetPosts();
+            return await _postRepository.GetAll();
         }
 
         public async Task InsertPost(Post post)
         {
-            var user = await _userRepository.GetUser(post.UserId);
+            var user = await _userRepository.GetById(post.UserId);
             if(user == null)
             {
                 throw new Exception("User doesn't exist");      //hacemos esepcion donde verificamos la existencia del usuario 
@@ -41,17 +41,19 @@ namespace SocialMedia.Core.Services
                 throw new Exception("Contenido no permitido en la descripción de esta publicación");
             }
 
-            await _postRepository.InsertPost(post);
+            await _postRepository.Add(post);
         }
 
         public async Task<bool> UpdatePost(Post post)
         {
-            return await _postRepository.UpdatePost(post);
+            await _postRepository.Update(post);
+            return true;
         }
 
         public async Task<bool> DeletePost(int id)
         {
-            return await _postRepository.DeletePost(id);
+            await _postRepository.Delete(id);
+            return true;
         }
     }
 }
