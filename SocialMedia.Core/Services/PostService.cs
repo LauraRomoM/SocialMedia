@@ -1,4 +1,4 @@
-﻿using SocialMedia.Core.Entities;
+using SocialMedia.Core.Entities;
 using SocialMedia.Core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -21,9 +21,9 @@ namespace SocialMedia.Core.Services
             return await _unitOfWork.PostRepository.GetById(id);
         }
 
-        public async Task<IEnumerable<Post>> GetPosts()
+        public IEnumerable<Post> GetPosts()
         {
-            return await _unitOfWork.PostRepository .GetAll();
+            return _unitOfWork.PostRepository.GetAll();
         }
 
         public async Task InsertPost(Post post)
