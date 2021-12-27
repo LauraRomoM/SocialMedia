@@ -42,6 +42,7 @@ namespace SocialMedia.Api
             
             services.AddTransient<IPostService, PostService>();
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             //Acregamos el ValidationFilter al midelWork para que las ejecuciones pasen x este filtro
             services.AddMvc(options =>              //a�adimos compativilidad con MVC
