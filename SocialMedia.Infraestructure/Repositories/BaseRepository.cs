@@ -5,6 +5,7 @@ using SocialMedia.Infraestructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SocialMedia.Infraestructure.Repositories
 {
@@ -18,5 +19,10 @@ namespace SocialMedia.Infraestructure.Repositories
             _entities = context.Set<T>();       //Registramos matriculamos la entidad de tipo T (este puede ser Post, Update, Delete, etc)
         }
 
+        public async Task<IEnumerable<T>> GetAll()
+        {
+            return await _entities.ToListAsync();     //convertimos a lista asincrona para consultar
+        }
+        
     }
 }
