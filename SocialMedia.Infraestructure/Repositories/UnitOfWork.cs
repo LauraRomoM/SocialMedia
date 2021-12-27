@@ -20,7 +20,7 @@ namespace SocialMedia.Infraestructure.Repositories
 
         public IRepository<Post> PostRepository => _postRepository ?? new BaseRepository<Post>(_context);
 
-        public IRepository<User> UserRepository => throw new NotImplementedException();
+        public IRepository<User> UserRepository => _userRepository ?? new BaseRepository<User>(_context);
 
         public IRepository<Coment> ComentRepository => throw new NotImplementedException();
 
