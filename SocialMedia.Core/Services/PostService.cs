@@ -18,7 +18,7 @@ namespace SocialMedia.Core.Services
 
         public async Task<Post> GetPost(int id)
         {
-            return await _postRepository.GetById(id);
+            return await _unitOfWork.PostRepository.GetById(id);
         }
 
         public async Task<IEnumerable<Post>> GetPosts()
