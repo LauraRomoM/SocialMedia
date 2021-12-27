@@ -20,7 +20,7 @@ namespace SocialMedia.Core.Services
 
         public async Task<Post> GetPost(int id)
         {
-            return await _postRepository.GetPost(id);
+            return await _postRepository.GetById(id);
         }
 
         public async Task<IEnumerable<Post>> GetPosts()
