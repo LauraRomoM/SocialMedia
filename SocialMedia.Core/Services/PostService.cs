@@ -41,7 +41,7 @@ namespace SocialMedia.Core.Services
                 throw new Exception("Contenido no permitido en la descripción de esta publicación");
             }
 
-            await _postRepository.InsertPost(post);
+            await _postRepository.Add(post);
         }
 
         public async Task<bool> UpdatePost(Post post)
