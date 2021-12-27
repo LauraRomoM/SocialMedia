@@ -2,6 +2,7 @@ using SocialMedia.Core.Entities;
 using SocialMedia.Core.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,6 +35,15 @@ namespace SocialMedia.Core.Services
                 throw new Exception("El usuario no existe");      //hacemos esepcion donde verificamos la existencia del usuario 
             }
 
+            var userPost = await _unitOfWork.PostRepository.GetPostsByUser(post.UserId);
+            if(userPost.Count() < 10)
+            {
+                var lastPost = userPost.OrderByDescending(x => x.Date).FirstOrDefault(); 
+                if((DateTime.Now - lastPost.Date).TotalDays < 7)
+                {
+                    throw new Exception("Usted solo puede hacer publicaciones una vez por semana");
+                }
+            }
             if(post.Description.Contains("Sexo") || post.Description.Contains("sexo"))
             {
                 throw new Exception("Contenido no permitido en la descripción de esta publicación");
