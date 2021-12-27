@@ -46,7 +46,8 @@ namespace SocialMedia.Core.Services
 
         public async Task<bool> UpdatePost(Post post)
         {
-            return await _postRepository.UpdatePost(post);
+            await _postRepository.Update(post);
+            return true;
         }
 
         public async Task<bool> DeletePost(int id)
