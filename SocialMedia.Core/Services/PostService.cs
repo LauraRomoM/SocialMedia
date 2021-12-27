@@ -1,4 +1,4 @@
-using SocialMedia.Core.Entities;
+﻿using SocialMedia.Core.Entities;
 using SocialMedia.Core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -50,7 +50,7 @@ namespace SocialMedia.Core.Services
 
         public async Task<bool> DeletePost(int id)
         {
-            await _postRepository.Delete(id);
+            await _unitOfWork.PostRepository.Delete(id);
             return true;
         }
     }
