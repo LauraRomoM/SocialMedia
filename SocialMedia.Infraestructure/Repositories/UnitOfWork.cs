@@ -1,4 +1,4 @@
-﻿using SocialMedia.Core.Entities;
+using SocialMedia.Core.Entities;
 using SocialMedia.Core.Interfaces;
 using SocialMedia.Infraestructure.Data;
 using System;
@@ -26,7 +26,10 @@ namespace SocialMedia.Infraestructure.Repositories
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            if(_context != null)
+            {
+                _context.Dispose();
+            }
         }
 
         public void SaveChanges()
