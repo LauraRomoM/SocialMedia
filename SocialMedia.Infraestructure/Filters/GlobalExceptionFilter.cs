@@ -1,3 +1,4 @@
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using SocialMedia.Core.Exceptions;
 using System;
@@ -24,6 +25,10 @@ namespace SocialMedia.Infraestructure.Filters
                 {
                     errors = new[] { validation }           //lista de errores con parametro de error = el objeto de nombre validation
                 };
+
+                context.Result = new BadRequestObjectResult(json);
+                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                context.ExceptionHandled = true;
 
             }
         }
