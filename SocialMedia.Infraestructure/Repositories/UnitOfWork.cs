@@ -1,4 +1,4 @@
-using SocialMedia.Core.Entities;
+﻿using SocialMedia.Core.Entities;
 using SocialMedia.Core.Interfaces;
 using SocialMedia.Infraestructure.Data;
 using System;
@@ -22,7 +22,7 @@ namespace SocialMedia.Infraestructure.Repositories
 
         public IRepository<User> UserRepository => _userRepository ?? new BaseRepository<User>(_context);
 
-        public IRepository<Coment> ComentRepository => throw new NotImplementedException();
+        public IRepository<Coment> ComentRepository => _comentRepository ?? new BaseRepository<Coment>(_context);
 
         public void Dispose()
         {
