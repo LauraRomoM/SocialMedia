@@ -20,6 +20,11 @@ namespace SocialMedia.Infraestructure.Filters
                     Detail = exception.Message
                 };
 
+                var json = new          //nuevo objeto anponimo
+                {
+                    errors = new[] { validation }           //lista de errores con parametro de error = el objeto de nombre validation
+                };
+
             }
         }
     }
