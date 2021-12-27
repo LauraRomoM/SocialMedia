@@ -24,9 +24,9 @@ namespace SocialMedia.Api.Controllers
         }
         
         [HttpGet]       //para consulta de todas las publicaciones o recursos
-        public async Task<IActionResult> GetPosts()
+        public IActionResult GetPosts()
         {
-            var posts = await _postService.GetPosts();
+            var posts = _postService.GetPosts();
             var postsDtos = _mapper.Map<IEnumerable<PostDto>>(posts);    //convertimos a tipo de dato IEnumerable(es un listado de PostDto enumerable)
             var response = new ApiResponse<IEnumerable<PostDto>>(postsDtos);
             return Ok(response);
