@@ -28,7 +28,7 @@ namespace SocialMedia.Core.Services
 
         public async Task InsertPost(Post post)
         {
-            var user = await _userRepository.GetById(post.UserId);
+            var user = await _unitOfWork.UserRepository.GetById(post.UserId);
             if(user == null)
             {
                 throw new Exception("User doesn't exist");      //hacemos esepcion donde verificamos la existencia del usuario 
@@ -39,7 +39,7 @@ namespace SocialMedia.Core.Services
                 throw new Exception("Contenido no permitido en la descripción de esta publicación");
             }
 
-            await _postRepository.Add(post);
+            await _unitOfWork.PostRepository.Add(post);
         }
 
         public async Task<bool> UpdatePost(Post post)
