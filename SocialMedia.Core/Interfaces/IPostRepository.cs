@@ -6,7 +6,7 @@ namespace SocialMedia.Core.Interfaces
 {
     public interface IPostRepository : IRepository<Post>
     {
-        Task<IEnumerable<Post>> GetPostsByUser(int id);
+        Task<IEnumerable<Post>> GetPostsByUser(int userId);
     }
 }
 //Generar BD colocando el comando en El NuGet Pakage Manager Console, comando:
