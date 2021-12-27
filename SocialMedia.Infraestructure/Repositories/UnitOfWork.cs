@@ -34,7 +34,7 @@ namespace SocialMedia.Infraestructure.Repositories
 
         public void SaveChanges()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
         public Task SaveChangesAsync()
