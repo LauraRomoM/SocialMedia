@@ -24,5 +24,9 @@ namespace SocialMedia.Infraestructure.Repositories
             return await _entities.ToListAsync();     //convertimos a lista asincrona para consultar
         }
         
+        public async Task<T> GetById(int id)
+        {
+            return await _entities.FindAsync(id);
+        }
     }
 }
