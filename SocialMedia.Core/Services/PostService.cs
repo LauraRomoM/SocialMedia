@@ -1,4 +1,4 @@
-using SocialMedia.Core.Entities;
+﻿using SocialMedia.Core.Entities;
 using SocialMedia.Core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -50,6 +50,7 @@ namespace SocialMedia.Core.Services
             }
 
             await _unitOfWork.PostRepository.Add(post);
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task<bool> UpdatePost(Post post)
