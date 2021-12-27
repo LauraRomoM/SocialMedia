@@ -25,7 +25,7 @@ namespace SocialMedia.Core.Services
 
         public async Task<IEnumerable<Post>> GetPosts()
         {
-            return await _postRepository.GetPosts();
+            return await _postRepository.GetAll();
         }
 
         public async Task InsertPost(Post post)
