@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SocialMedia.Core.Entities;
 using SocialMedia.Core.Interfaces;
 using SocialMedia.Infraestructure.Data;
@@ -45,7 +45,6 @@ namespace SocialMedia.Infraestructure.Repositories
         {
             T entity = await GetById(id);
             _entities.Remove(entity);
-            _context.SaveChanges();
         }
      
     }
