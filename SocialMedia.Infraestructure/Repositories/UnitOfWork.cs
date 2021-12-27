@@ -1,4 +1,4 @@
-﻿using SocialMedia.Core.Entities;
+using SocialMedia.Core.Entities;
 using SocialMedia.Core.Interfaces;
 using SocialMedia.Infraestructure.Data;
 using System;
@@ -18,7 +18,7 @@ namespace SocialMedia.Infraestructure.Repositories
             _context = context;
         }
 
-        public IRepository<Post> PostRepository => throw new NotImplementedException();
+        public IRepository<Post> PostRepository => _postRepository ?? new BaseRepository<Post>(_context);
 
         public IRepository<User> UserRepository => throw new NotImplementedException();
 
