@@ -1,4 +1,4 @@
-using SocialMedia.Core.Entities;
+﻿using SocialMedia.Core.Entities;
 using SocialMedia.Core.Interfaces;
 using SocialMedia.Infraestructure.Data;
 using System;
@@ -37,9 +37,9 @@ namespace SocialMedia.Infraestructure.Repositories
             _context.SaveChanges();
         }
 
-        public Task SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            await _context.SaveChangesAsync();
         }
     }
 }
