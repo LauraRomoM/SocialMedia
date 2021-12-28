@@ -4,6 +4,7 @@ using SocialMedia.Api.Responses;
 using SocialMedia.Core.DTOs;
 using SocialMedia.Core.Entities;
 using SocialMedia.Core.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace SocialMedia.Api.Controllers
         }
         
         [HttpGet]       //para consulta de todas las publicaciones o recursos
-        public IActionResult GetPosts()
+        public IActionResult GetPosts(int userId, DateTime date, string description)
         {
             var posts = _postService.GetPosts();
             var postsDtos = _mapper.Map<IEnumerable<PostDto>>(posts);    //convertimos a tipo de dato IEnumerable(es un listado de PostDto enumerable)
