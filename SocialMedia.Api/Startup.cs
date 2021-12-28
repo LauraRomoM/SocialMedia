@@ -28,11 +28,13 @@ namespace SocialMedia.Api
         {
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());   //busca en toda la solucion, cuales son los profiles que se estan haciendo para registrarlos
 
-            services.AddControllers().AddNewtonsoftJson(options =>
+            services.AddControllers(options =>
             {
+                options.Filters.Add<GlobalExceptionFilter>();
+            }).AddNewtonsoftJson(options =>
+            { 
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            })
-            .ConfigureApiBehaviorOptions(options => {       //con esto des habilitamos la decoracion [ApiControler]
+            }).ConfigureApiBehaviorOptions(options => {       //con esto des habilitamos la decoracion [ApiControler]
             
             });
 
