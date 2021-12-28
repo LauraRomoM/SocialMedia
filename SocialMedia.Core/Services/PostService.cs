@@ -1,7 +1,9 @@
 ﻿using SocialMedia.Core.Entities;
+using SocialMedia.Core.Exceptions;
 using SocialMedia.Core.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,15 +33,25 @@ namespace SocialMedia.Core.Services
             var user = await _unitOfWork.UserRepository.GetById(post.UserId);
             if(user == null)
             {
-                throw new Exception("User doesn't exist");      //hacemos esepcion donde verificamos la existencia del usuario 
+                throw new BusinessException("El usuario no existe");      //hacemos esepcion donde verificamos la existencia del usuario 
             }
 
+            var userPost = await _unitOfWork.PostRepository.GetPostsByUser(post.UserId);
+            if(userPost.Count() < 10)
+            {
+                var lastPost = userPost.OrderByDescending(x => x.Date).FirstOrDefault(); 
+                if((DateTime.Now - lastPost.Date).TotalDays < 7)
+                {
+                    throw new BusinessException("Usted solo puede hacer publicaciones una vez por semana");
+                }
+            }
             if(post.Description.Contains("Sexo") || post.Description.Contains("sexo"))
             {
-                throw new Exception("Contenido no permitido en la descripción de esta publicación");
+                throw new BusinessException("Contenido no permitido en la descripción de esta publicación");
             }
 
             await _unitOfWork.PostRepository.Add(post);
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task<bool> UpdatePost(Post post)
