@@ -17,5 +17,14 @@ namespace SocialMedia.Core.CustomEntities
         public int? PreviousPageNumber => HasPreviousPage ? CurrentPage - 1: (int?) null;      //validar si hay pagina anterior 
         public int? NextPageNumber => HasNextPage ? CurrentPage + 1: (int?) null;        //validar si hay pagina siguiente
 
+        public PagedList(List<T> items, int count, int pageNumber, int pageSize)
+        {
+            CurrentPage = pageNumber;
+            TotalPages = count;
+            PageSize = pageSize;
+            TotalPages = (int)Math.Ceiling(count / (double)pageNumber);   //redondeo hacia arriba pe: 8.3 = 9 ya redondeado (para evitar gerdida de paginas con pocos registros)
+
+            AddRange(items);
+        }
     }
 }
