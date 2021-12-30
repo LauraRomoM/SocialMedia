@@ -1,5 +1,6 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SocialMedia.Core.CustomEntities
@@ -25,6 +26,16 @@ namespace SocialMedia.Core.CustomEntities
             TotalPages = (int)Math.Ceiling(count / (double)pageNumber);   //redondeo hacia arriba pe: 8.3 = 9 ya redondeado (para evitar gerdida de paginas con pocos registros)
 
             AddRange(items);
+        }
+
+        //creamos clase para la paginacion
+        public static PagedList<T> Create(IEnumerable<T> source, int pageNumber, int pageSize)
+        {
+            var count = source.Count();     //obtener cant de registros
+            var items = source.Skip((pageNumber-1)*pageSize).Take(pageSize).ToList();   //implementa Paginacion, (es basicamente el omitir parte de los registros)
+ //Ej: hay 2pags de 10regs cada uno, Skip((2-1)*10).Take(10) = omite(primeros 10 registros) y toma(10 registros)
+
+            return new PagedList<T>(items, count, pageNumber, pageSize);
         }
     }
 }
