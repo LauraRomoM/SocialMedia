@@ -34,6 +34,7 @@ namespace SocialMedia.Api
             }).AddNewtonsoftJson(options =>
             { 
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;            //especifica que si tenemos un valor null, lo ignore y no lo muestre
             }).ConfigureApiBehaviorOptions(options => {       //con esto des habilitamos la decoracion [ApiControler]
             
             });

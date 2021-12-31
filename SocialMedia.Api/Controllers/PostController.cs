@@ -1,11 +1,16 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using SocialMedia.Api.Responses;
+using SocialMedia.Core.CustomEntities;
 using SocialMedia.Core.DTOs;
 using SocialMedia.Core.Entities;
 using SocialMedia.Core.Interfaces;
+using SocialMedia.Core.QueryFilters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace SocialMedia.Api.Controllers
@@ -24,11 +29,29 @@ namespace SocialMedia.Api.Controllers
         }
         
         [HttpGet]       //para consulta de todas las publicaciones o recursos
-        public IActionResult GetPosts()
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public IActionResult GetPosts([FromQuery]PostQueryFilter filters)
         {
-            var posts = _postService.GetPosts();
+            var posts = _postService.GetPosts(filters);
             var postsDtos = _mapper.Map<IEnumerable<PostDto>>(posts);    //convertimos a tipo de dato IEnumerable(es un listado de PostDto enumerable)
-            var response = new ApiResponse<IEnumerable<PostDto>>(postsDtos);
+
+            var metadata = new Metadata             //creando objeto tipo Metadata
+            {
+                TotalCount = posts.TotalCount,
+                PageSize = posts.PageSize,
+                CurrentPage = posts.CurrentPage,
+                TotalPages = posts.TotalPages,
+                HasNextPages = posts.HasNextPage,
+                HasPreviousPages = posts.HasPreviousPage
+            };
+
+            var response = new ApiResponse<IEnumerable<PostDto>>(postsDtos)
+            {
+                Meta = metadata         //Meta (ubicado en ApiResponse), es igual al objeto metadata (declarado justo arriba en linea 39) 
+            };
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));        //JsonConvert.SerializeObject(), devuelve string del objeto metadata en formato Json
+
             return Ok(response);
         }
 
