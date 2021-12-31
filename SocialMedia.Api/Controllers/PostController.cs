@@ -35,7 +35,6 @@ namespace SocialMedia.Api.Controllers
         {
             var posts = _postService.GetPosts(filters);
             var postsDtos = _mapper.Map<IEnumerable<PostDto>>(posts);    //convertimos a tipo de dato IEnumerable(es un listado de PostDto enumerable)
-            var response = new ApiResponse<IEnumerable<PostDto>>(postsDtos);
 
             var metadata = new Metadata             //creando objeto tipo Metadata
             {
@@ -45,6 +44,11 @@ namespace SocialMedia.Api.Controllers
                 TotalPages = posts.TotalPages,
                 HasNextPages = posts.HasNextPage,
                 HasPreviousPages = posts.HasPreviousPage
+            };
+
+            var response = new ApiResponse<IEnumerable<PostDto>>(postsDtos)
+            {
+                Meta = metadata         //Meta (ubicado en ApiResponse), es igual al objeto metadata (declarado justo arriba en linea 39) 
             };
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));        //JsonConvert.SerializeObject(), devuelve string del objeto metadata en formato Json
 
