@@ -21,9 +21,9 @@ namespace SocialMedia.Core.CustomEntities
         public PagedList(List<T> items, int count, int pageNumber, int pageSize)
         {
             CurrentPage = pageNumber;
-            TotalPages = count;
+            TotalCount = count;
             PageSize = pageSize;
-            TotalPages = (int)Math.Ceiling(count / (double)pageNumber);   //redondeo hacia arriba pe: 8.3 = 9 ya redondeado (para evitar gerdida de paginas con pocos registros)
+            TotalPages = (int)Math.Ceiling(count / (double)pageSize);   //redondeo hacia arriba pe: 8.3 = 9 ya redondeado (para evitar gerdida de paginas con pocos registros)
 
             AddRange(items);
         }
