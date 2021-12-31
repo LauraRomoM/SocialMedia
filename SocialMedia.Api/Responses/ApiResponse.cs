@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using SocialMedia.Core.CustomEntities;
 
 namespace SocialMedia.Api.Responses
 {
@@ -14,5 +11,7 @@ namespace SocialMedia.Api.Responses
         }
 
         public T Data { get; set; }       //propiedad Data de tipo T, en Data enviamos los resultados de post especificos, si hacemos insert, en Data se guarda la info de esta insercion, para el Delete hacemos solo un bool
+        
+        public Metadata Meta { get; set; }
     }
 }
