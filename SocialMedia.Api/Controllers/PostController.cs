@@ -30,8 +30,8 @@ namespace SocialMedia.Api.Controllers
             _mapper = mapper;
             _uriService = uriService;
         }
-        
-        [HttpGet]       //para consulta de todas las publicaciones o recursos
+
+        [HttpGet (Name = nameof(GetPosts)) ]            //decoracion para obtener url generica
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public IActionResult GetPosts([FromQuery]PostQueryFilter filters)
@@ -47,7 +47,7 @@ namespace SocialMedia.Api.Controllers
                 TotalPages = posts.TotalPages,
                 HasNextPages = posts.HasNextPage,
                 HasPreviousPages = posts.HasPreviousPage,
-                NextPageUrl = _uriService.GetPostPaginationUri(filters, "api/Post").ToString()
+                NextPageUrl = _uriService.GetPostPaginationUri(filters, Url.RouteUrl(nameof(GetPosts))).ToString()      
             };
 
             var response = new ApiResponse<IEnumerable<PostDto>>(postsDtos)
