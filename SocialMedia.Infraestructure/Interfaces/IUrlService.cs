@@ -3,7 +3,7 @@ using System;
 
 namespace SocialMedia.Infraestructure.Interfaces
 {
-    public interface IUrlService
+    public interface IUriService
     {
         Uri GetPostPaginationUri(PostQueryFilter filter, string actionUrl);
     }
