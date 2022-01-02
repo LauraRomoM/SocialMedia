@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SocialMedia.Infraestructure.Services
 {
-    public class UrlService : IUrlService
+    public class UrlService : IUriService
     {
         private readonly string _baseUri;        //inlleccion de dependencias
         public UrlService(string baseUri)
