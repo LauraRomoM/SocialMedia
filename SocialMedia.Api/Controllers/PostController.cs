@@ -46,7 +46,8 @@ namespace SocialMedia.Api.Controllers
                 CurrentPage = posts.CurrentPage,
                 TotalPages = posts.TotalPages,
                 HasNextPages = posts.HasNextPage,
-                HasPreviousPages = posts.HasPreviousPage
+                HasPreviousPages = posts.HasPreviousPage,
+                NextPageUrl = _uriService.GetPostPaginationUri(filters, "api/Post").ToString()
             };
 
             var response = new ApiResponse<IEnumerable<PostDto>>(postsDtos)
