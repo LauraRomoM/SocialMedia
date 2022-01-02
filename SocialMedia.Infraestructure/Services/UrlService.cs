@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,8 +6,11 @@ namespace SocialMedia.Infraestructure.Services
 {
     public class UrlService
     {
-        public UrlService()
+        private readonly string _baseUri;        //inlleccion de dependencias
+        public UrlService(string baseUri)
         {
+            _baseUri = baseUri;
+        }
 
         }
     }
