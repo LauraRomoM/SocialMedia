@@ -1,11 +1,12 @@
-using SocialMedia.Core.QueryFilters;
+﻿using SocialMedia.Core.QueryFilters;
+using SocialMedia.Infraestructure.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace SocialMedia.Infraestructure.Services
 {
-    public class UrlService
+    public class UrlService : IUrlService
     {
         private readonly string _baseUri;        //inlleccion de dependencias
         public UrlService(string baseUri)
