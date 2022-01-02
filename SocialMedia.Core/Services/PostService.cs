@@ -27,6 +27,9 @@ namespace SocialMedia.Core.Services
 
         public PagedList<Post> GetPosts(PostQueryFilter filters)
         {
+            filters.PageNumber = filters.PageNumber == 0 ? 1 : filters.PageNumber;      //si numero de paginas es 0, mostrar una pagina por defecto
+            filters.PageSize = filters.PageSize == 0 ? 20 : filters.PageSize;           //si tamaño de pagina es 0, mostrar por defecto como minimo de tamaño de pagina 20 registros 
+
             var posts = _unitOfWork.PostRepository.GetAll();
             if (filters.UserId != null)
             {
