@@ -6,10 +6,10 @@ using System.Text;
 
 namespace SocialMedia.Infraestructure.Services
 {
-    public class UrlService : IUriService
+    public class UriService : IUriService
     {
         private readonly string _baseUri;        //inlleccion de dependencias
-        public UrlService(string baseUri)
+        public UriService(string baseUri)
         {
             _baseUri = baseUri;
         }
