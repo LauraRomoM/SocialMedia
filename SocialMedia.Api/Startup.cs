@@ -1,6 +1,7 @@
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +10,9 @@ using SocialMedia.Core.Interfaces;
 using SocialMedia.Core.Services;
 using SocialMedia.Infraestructure.Data;
 using SocialMedia.Infraestructure.Filters;
+using SocialMedia.Infraestructure.Interfaces;
 using SocialMedia.Infraestructure.Repositories;
+using SocialMedia.Infraestructure.Services;
 using System;
 
 namespace SocialMedia.Api
@@ -45,7 +48,14 @@ namespace SocialMedia.Api
             
             services.AddTransient<IPostService, PostService>();
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();           //Trasient crea una instncia nueva cada vez que se hace un request
+            services.AddSingleton<IUriService>(provider =>              //Singleton indica que se creará una unica instancia para toda la aplicacion, no es necesario crear instancias cada vez que se haga un request
+            {
+                var accesor = provider.GetRequiredService<IHttpContextAccessor>();      //obtener acceso al contexto http que esta generando la app
+                var request = accesor.HttpContext.Request;          //obtener el request del cliente
+                var absoluteUri = string.Concat(request.Scheme, "://", request.Host.ToUriComponent());       //obtener la url del request hecho, (dentro del Concat() va la url estructurada), request.Schema devuelve el estandar por el que el usuario hizo el request, ya se Http o Https
+                return new UriService(absoluteUri);         //retorna nueva instancia de UriService
+            });     
 
             //Acregamos el ValidationFilter al midelWork para que las ejecuciones pasen x este filtro
             services.AddMvc(options =>              //a�adimos compativilidad con MVC
