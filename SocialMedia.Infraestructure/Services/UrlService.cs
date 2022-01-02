@@ -1,3 +1,4 @@
+using SocialMedia.Core.QueryFilters;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,6 +13,10 @@ namespace SocialMedia.Infraestructure.Services
             _baseUri = baseUri;
         }
 
+        public Uri GetPostPaginationUri(PostQueryFilter filter, string actionUrl)
+        {
+            string baseUrl = $"{_baseUri}{actionUrl}";        //interpolacion de string (concatenacion de _baseUrl con actionUrl)
+            return new Uri(baseUrl);
         }
     }
 }
