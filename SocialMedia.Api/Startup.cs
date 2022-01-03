@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SocialMedia.Core.CustomEntities;
 using SocialMedia.Core.Interfaces;
 using SocialMedia.Core.Services;
 using SocialMedia.Infraestructure.Data;
@@ -42,6 +43,8 @@ namespace SocialMedia.Api
             
             });
 
+            services.Configure<PaginationOptions>(Configuration.GetSection("Pagination"));       //este string "Pagination debe coinsidir con el colocado en el appsettings (en .Configure tambien aplica un .Singleton que crea un solo objeto para todo el programa)
+            
             services.AddDbContext<SocialMediaContext>(Options =>
                 Options.UseSqlServer(Configuration.GetConnectionString("SocialMedia"))     //usaremos sql server y la cadena de conexion para acceder esta en el GetConectionString("SocialMedia")
             );
