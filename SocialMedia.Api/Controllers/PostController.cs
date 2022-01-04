@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SocialMedia.Api.Responses;
@@ -16,6 +17,7 @@ using System.Threading.Tasks;
 
 namespace SocialMedia.Api.Controllers
 {
+    [Authorize]                         //Exige que al invocar en la API, este debe estar autenticado
     [Produces ("application/json")]              //solo dejamos la opcion json en el swagger para solo permitir abrir ese tipo de archivo y no usar xml o demas
     [Route("api/[controller]")]
     [ApiController]
