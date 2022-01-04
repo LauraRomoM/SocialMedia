@@ -22,5 +22,10 @@ namespace SocialMedia.Api.Controllers
             }
             return NotFound();
         }
+
+        private bool IsValidUser(UserLogin login)
+        {
+            return true;
+        }
     }
 }
