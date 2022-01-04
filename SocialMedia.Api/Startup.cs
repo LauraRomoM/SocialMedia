@@ -60,6 +60,11 @@ namespace SocialMedia.Api
                 return new UriService(absoluteUri);         //retorna nueva instancia de UriService
             });     
 
+            services.AddSwaggerGen(doc =>
+            {
+                doc.SwaggerDoc("v1.0", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Social MEdia API", Version = "V1.0" });
+            });
+
             //Acregamos el ValidationFilter al midelWork para que las ejecuciones pasen x este filtro
             services.AddMvc(options =>              //a�adimos compativilidad con MVC
             {
@@ -80,6 +85,12 @@ namespace SocialMedia.Api
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1.0/swagger.json", "Social Media API v1.0");          //colocamos url para que nuestro archivo swagger se vea con interfaz grafica, despues se coloca un nombre en este caso (Social Media API)
+            });
 
             app.UseRouting();
 
