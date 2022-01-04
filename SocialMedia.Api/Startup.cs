@@ -15,6 +15,8 @@ using SocialMedia.Infraestructure.Interfaces;
 using SocialMedia.Infraestructure.Repositories;
 using SocialMedia.Infraestructure.Services;
 using System;
+using System.IO;
+using System.Reflection;
 
 namespace SocialMedia.Api
 {
@@ -63,6 +65,9 @@ namespace SocialMedia.Api
             services.AddSwaggerGen(doc =>
             {
                 doc.SwaggerDoc("v1.0", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Social MEdia API", Version = "V1.0" });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";     //Generamos nombre del archivo
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);       //ruta donde está el xml (el comentario de 3diagonales /// )
+                doc.IncludeXmlComments(xmlPath);            //incluye los xml de la ruta xmlPath
             });
 
             //Acregamos el ValidationFilter al midelWork para que las ejecuciones pasen x este filtro
