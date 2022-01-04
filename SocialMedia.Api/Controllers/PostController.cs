@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 
 namespace SocialMedia.Api.Controllers
 {
+    [Produces ("application/json")]              //solo dejamos la opcion json en el swagger para solo permitir abrir ese tipo de archivo y no usar xml o demas
     [Route("api/[controller]")]
     [ApiController]
     public class PostController : ControllerBase
