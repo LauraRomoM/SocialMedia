@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SocialMedia.Core.CustomEntities;
 using System;
 using System.Collections.Generic;
@@ -27,5 +27,11 @@ namespace SocialMedia.Api.Controllers
         {
             return true;
         }
+
+        private string GenerateToken()
+        {
+            return string.Empty;
+        }
+
     }
 }
