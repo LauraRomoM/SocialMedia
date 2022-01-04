@@ -89,7 +89,7 @@ namespace SocialMedia.Api
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint("/swagger/v1.0/swagger.json", "Social Media API v1.0");          //colocamos url para que nuestro archivo swagger se vea con interfaz grafica, despues se coloca un nombre en este caso (Social Media API)
+                options.SwaggerEndpoint("/swagger/v1.0/swagger.json", "Social Media API v1.0");          //colocamos url para generar interfaz grafica de nuestro archivo swagger.json, despues se coloca un nombre en este caso (Social Media API)
                 options.RoutePrefix = string.Empty;                 //basicamente para que tome la raiz de nuestra API
             });
 
