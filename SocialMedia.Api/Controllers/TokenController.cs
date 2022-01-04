@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using SocialMedia.Core.CustomEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,18 @@ namespace SocialMedia.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TokenController
+    public class TokenController : ControllerBase
     {
+        [HttpPost]
+        public IActionResult Authentication(UserLogin login)
+        {
+            //si es usuario valido
+            if(IsValidUser(login))
+            {
+                var token = GenerateToken();
+                return Ok(new { token });
+            }
+            return NotFound();
+        }
     }
 }
