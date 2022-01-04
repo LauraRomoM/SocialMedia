@@ -7,6 +7,7 @@ using SocialMedia.Core.DTOs;
 using SocialMedia.Core.Entities;
 using SocialMedia.Core.Interfaces;
 using SocialMedia.Core.QueryFilters;
+using SocialMedia.Infraestructure.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,14 +22,16 @@ namespace SocialMedia.Api.Controllers
     {
         private readonly IPostService _postService;
         private readonly IMapper _mapper;
+        private readonly IUriService _uriService;
 
-        public PostController(IPostService postService, IMapper mapper)
+        public PostController(IPostService postService, IMapper mapper, IUriService uriService)
         {
             _postService = postService;
             _mapper = mapper;
+            _uriService = uriService;
         }
-        
-        [HttpGet]       //para consulta de todas las publicaciones o recursos
+
+        [HttpGet (Name = nameof(GetPosts)) ]            //decoracion para obtener url generica
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public IActionResult GetPosts([FromQuery]PostQueryFilter filters)
@@ -43,7 +46,9 @@ namespace SocialMedia.Api.Controllers
                 CurrentPage = posts.CurrentPage,
                 TotalPages = posts.TotalPages,
                 HasNextPages = posts.HasNextPage,
-                HasPreviousPages = posts.HasPreviousPage
+                HasPreviousPages = posts.HasPreviousPage,
+                NextPageUrl = _uriService.GetPostPaginationUri(filters, Url.RouteUrl(nameof(GetPosts))).ToString(),      
+                PreviousPageUrl = _uriService.GetPostPaginationUri(filters, Url.RouteUrl(nameof(GetPosts))).ToString()
             };
 
             var response = new ApiResponse<IEnumerable<PostDto>>(postsDtos)
