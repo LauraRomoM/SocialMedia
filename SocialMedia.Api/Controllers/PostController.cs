@@ -32,9 +32,9 @@ namespace SocialMedia.Api.Controllers
         }
 
         /// <summary>
-        /// 
+        ///     Retry all posts
         /// </summary>
-        /// <param name="filters"></param>
+        /// <param name="filters"> Filters to apply </param>
         /// <returns></returns>
         [HttpGet (Name = nameof(GetPosts)) ]            //decoracion para obtener url generica
         [ProducesResponseType((int)HttpStatusCode.OK)]
