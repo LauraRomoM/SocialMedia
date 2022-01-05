@@ -121,9 +121,9 @@ namespace SocialMedia.Api
 
             app.UseRouting();
 
+            app.UseAuthentication(); //importante primero colocar la autenticacion y aautorizacion despues
             app.UseAuthorization();
-            app.UseAuthentication();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
