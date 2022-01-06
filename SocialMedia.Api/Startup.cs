@@ -67,7 +67,7 @@ namespace SocialMedia.Api
 
             services.AddSwaggerGen(doc =>
             {
-                doc.SwaggerDoc("v1.0", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Social Media API", Version = "V1.0" });
+                doc.SwaggerDoc("v1.0", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Social Media API", Version = "v1.0" });
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";     //Generamos nombre del archivo
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);       //ruta donde está el xml (el comentario de 3diagonales /// )
                 doc.IncludeXmlComments(xmlPath);            //incluye los xml de la ruta xmlPath
