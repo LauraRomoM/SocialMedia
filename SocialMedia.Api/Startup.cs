@@ -73,6 +73,7 @@ namespace SocialMedia.Api
                 doc.IncludeXmlComments(xmlPath);            //incluye los xml de la ruta xmlPath
             });
 
+            ///El midle work tiene un orden, asi que el Authentification va antes del Mvc
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
