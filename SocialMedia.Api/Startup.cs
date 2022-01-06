@@ -1,4 +1,5 @@
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using SocialMedia.Core.CustomEntities;
 using SocialMedia.Core.Interfaces;
 using SocialMedia.Core.Services;
@@ -15,6 +17,9 @@ using SocialMedia.Infraestructure.Interfaces;
 using SocialMedia.Infraestructure.Repositories;
 using SocialMedia.Infraestructure.Services;
 using System;
+using System.IO;
+using System.Reflection;
+using System.Text;
 
 namespace SocialMedia.Api
 {
@@ -60,6 +65,33 @@ namespace SocialMedia.Api
                 return new UriService(absoluteUri);         //retorna nueva instancia de UriService
             });     
 
+            services.AddSwaggerGen(doc =>
+            {
+                doc.SwaggerDoc("v1.0", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Social Media API", Version = "v1.0" });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";     //Generamos nombre del archivo
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);       //ruta donde está el xml (el comentario de 3diagonales /// )
+                doc.IncludeXmlComments(xmlPath);            //incluye los xml de la ruta xmlPath
+            });
+
+            ///El midle work tiene un orden, asi que el Authentification va antes del Mvc
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,         //validar el emisor
+                    ValidateAudience = true,
+                    ValidateLifetime = true,        //tiempo de vida del token
+                    ValidateIssuerSigningKey = true,     //validar firma del emisor
+                    ValidIssuer = Configuration["Authentication:Issuer"],
+                    ValidAudience = Configuration["Authentication:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Authentication:SecretKey"]))  //obtenemos security key y  convertimos a string de bytes 
+                };
+            });
+
             //Acregamos el ValidationFilter al midelWork para que las ejecuciones pasen x este filtro
             services.AddMvc(options =>              //a�adimos compativilidad con MVC
             {
@@ -81,10 +113,18 @@ namespace SocialMedia.Api
 
             app.UseHttpsRedirection();
 
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1.0/swagger.json", "Social Media API v1.0");          //colocamos url para generar interfaz grafica de nuestro archivo swagger.json, despues se coloca un nombre en este caso (Social Media API)
+                options.RoutePrefix = string.Empty;                 //basicamente para que tome la raiz de nuestra API
+            });
+
             app.UseRouting();
 
+            app.UseAuthentication(); //importante primero colocar la autenticacion y aautorizacion despues
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
